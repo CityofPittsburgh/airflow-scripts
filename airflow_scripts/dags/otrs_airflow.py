@@ -1,6 +1,16 @@
 from __future__ import absolute_import
 
-from dependencies.modules_import import *
+import os
+
+from airflow import DAG, configuration, models
+from airflow.operators.bash_operator import BashOperator
+from airflow.operators.docker_operator import DockerOperator
+from airflow.contrib.operators.dataflow_operator import DataFlowPythonOperator
+from airflow.contrib.operators.gcs_to_bq import GoogleCloudStorageToBigQueryOperator
+from airflow.contrib.operators.bigquery_operator import BigQueryOperator
+from airflow.operators.python_operator import PythonOperator
+from datetime import datetime, timedelta
+from dependencies import airflow_utils
 from dependencies.airflow_utils import yesterday, dt, build_revgeo_query, filter_old_values
 
 # TODO: When Airflow 2.0 is released, upgrade the package, upgrade the virtualenv to Python3,
